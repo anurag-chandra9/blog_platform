@@ -63,6 +63,3 @@ blog_platform/
 - GET /api/posts/ - List all posts
 - POST /api/posts/ - Create a new post
 - GET /api/posts/{id}/ - Retrieve specific post
-
-## Deployment
-Refer to the deployment documentation for Azure setup instructions.
