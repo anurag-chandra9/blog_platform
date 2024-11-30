@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',  # Add this for token authentication
     'api',
+    'knox',
+    'corsheaders',
     'whitenoise',  # Add whitenoise
 ]
 
@@ -45,7 +47,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,)'build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +124,7 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://your-blog-frontend.vercel.app",  # Update with your Vercel domain
+    "https://*.amplifyapp.com"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
