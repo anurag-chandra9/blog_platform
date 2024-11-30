@@ -1,33 +1,38 @@
 version: 1
-applications:
-  - frontend:
-      phases:
-        preBuild:
-          commands:
-            - npm ci
-        build:
-          commands:
-            - npm run build
-      artifacts:
-        baseDirectory: build
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
-    
-    backend:
-      phases:
-        preBuild:
-          commands:
-            - pip install -r requirements.txt
-        build:
-          commands:
-            - python manage.py collectstatic --noinput
-      artifacts:
-        baseDirectory: backend
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - /root/.cache/pip
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd frontend
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: frontend/build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend/node_modules/**/*
+
+backend:
+  phases:
+    preBuild:
+      commands:
+        - cd backend
+        - pip install --upgrade pip
+        - pip install -r ../requirements.txt
+    build:
+      commands:
+        - python manage.py collectstatic --noinput
+    postBuild:
+      commands:
+        - python manage.py migrate
+  artifacts:
+    baseDirectory: backend
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - /root/.cache/pip
