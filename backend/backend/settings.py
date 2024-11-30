@@ -9,9 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-your-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['*']  # We'll use CORS_ALLOWED_ORIGINS for security
 
 # Application definition
 INSTALLED_APPS = [
@@ -68,9 +68,14 @@ DATABASES = {
     }
 }
 
-# Update database configuration from $DATABASE_URL if available
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# Update database configuration from $DATABASE_URL
+database_url = os.environ.get('DATABASE_URL')
+if database_url:
+    DATABASES['default'] = dj_database_url.config(
+        default=database_url,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -97,8 +102,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Static files configuration
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -117,7 +122,7 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://your-blog-platform.vercel.app",  # Replace with your Vercel domain
+    "https://your-blog-frontend.vercel.app",  # Update with your Vercel domain
 ]
 
 CORS_ALLOW_CREDENTIALS = True
