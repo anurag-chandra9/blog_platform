@@ -78,6 +78,86 @@ The application will be available at:
 - DELETE /api/posts/{id}/ - Delete post
 - GET /api/posts/my_posts/ - List user's posts
 
+## Azure Deployment
+
+### Prerequisites
+1. Azure Account
+2. Azure CLI installed
+3. Azure App Service plan
+4. Azure PostgreSQL database
+5. Azure Storage account for media files
+
+### Backend Deployment
+
+1. Create Azure resources:
+```bash
+# Create resource group
+az group create --name blog-platform-rg --location eastus
+
+# Create PostgreSQL server
+az postgres server create --resource-group blog-platform-rg --name blog-platform-db --location eastus --admin-user myuser --admin-password mypassword --sku-name B_Gen5_1
+
+# Create App Service plan
+az appservice plan create --name blog-platform-plan --resource-group blog-platform-rg --sku B1 --is-linux
+
+# Create backend Web App
+az webapp create --resource-group blog-platform-rg --plan blog-platform-plan --name blog-platform-backend --runtime "PYTHON:3.9"
+```
+
+2. Configure environment variables:
+```bash
+az webapp config appsettings set --resource-group blog-platform-rg --name blog-platform-backend --settings \
+    DJANGO_SETTINGS_MODULE=backend.production_settings \
+    AZURE_POSTGRESQL_NAME=your_db_name \
+    AZURE_POSTGRESQL_USER=your_db_user \
+    AZURE_POSTGRESQL_PASSWORD=your_db_password \
+    AZURE_POSTGRESQL_HOST=your_db_host \
+    AZURE_STORAGE_ACCOUNT_NAME=your_storage_account \
+    AZURE_STORAGE_ACCOUNT_KEY=your_storage_key \
+    AZURE_STORAGE_CONTAINER_NAME=media
+```
+
+3. Deploy backend:
+```bash
+cd backend
+az webapp up --name blog-platform-backend --runtime "PYTHON:3.9"
+```
+
+### Frontend Deployment
+
+1. Build the frontend:
+```bash
+cd frontend
+npm run build
+```
+
+2. Create and deploy frontend Web App:
+```bash
+az webapp create --resource-group blog-platform-rg --plan blog-platform-plan --name blog-platform-frontend --runtime "NODE:16-lts"
+
+# Deploy build folder
+az webapp deployment source config-zip --resource-group blog-platform-rg --name blog-platform-frontend --src build.zip
+```
+
+### Post-Deployment Steps
+
+1. Configure custom domain (optional)
+2. Set up SSL certificates
+3. Configure monitoring and alerts
+4. Test all functionality in production
+
+### Monitoring
+
+1. Enable Application Insights:
+```bash
+az monitor app-insights component create --app blog-platform --location eastus --resource-group blog-platform-rg
+```
+
+2. View logs:
+```bash
+az webapp log tail --name blog-platform-backend --resource-group blog-platform-rg
+```
+
 ## Contributing
 
 1. Fork the repository

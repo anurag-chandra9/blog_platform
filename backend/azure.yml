@@ -1,0 +1,13 @@
+name: blog-platform-backend
+language: python
+stack: python
+env:
+  - key: PYTHON_VERSION
+    value: "3.9"
+  - key: DJANGO_SETTINGS_MODULE
+    value: "backend.settings"
+  - key: WEBSITES_PORT
+    value: "8000"
+
+startup:
+  - command: "gunicorn backend.wsgi:application --bind=0.0.0.0:8000"
