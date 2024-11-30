@@ -11,7 +11,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-default-dev-ke
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'main.dz1xwkkl7e0v6.amplifyapp.com',
+    '*.amplifyapp.com'
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -124,7 +129,7 @@ REST_FRAMEWORK = {
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://*.amplifyapp.com"
+    "https://main.dz1xwkkl7e0v6.amplifyapp.com"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -151,7 +156,7 @@ CORS_ALLOW_HEADERS = [
 
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3002",
+    "https://main.dz1xwkkl7e0v6.amplifyapp.com"
 ]
 
 # Production settings

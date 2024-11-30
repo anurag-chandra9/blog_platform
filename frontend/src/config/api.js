@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = process.env.REACT_APP_API_URL || 'https://main.dz1xwkkl7e0v6.amplifyapp.com';
 
 export const endpoints = {
     login: `${API_URL}/api/auth/login/`,
