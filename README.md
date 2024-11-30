@@ -1,85 +1,63 @@
 # Blog Platform
 
-A modern blog platform built with React and Django, featuring user authentication, post management, and image upload capabilities.
+A full-stack blog platform built with React and Django, deployable to Azure.
 
-## Features
+## Project Structure
+```
+blog_platform/
+├── backend/         # Django backend
+│   ├── api/        # REST API endpoints
+│   ├── blog/       # Main Django app
+│   └── manage.py
+└── frontend/       # React frontend
+    ├── public/
+    └── src/
+```
 
-- User Authentication (Register, Login, Logout)
-- Create, Read, Update, Delete Blog Posts
-- Image Upload Support
-- Responsive Design
-- User-specific Post Management
-- Modern UI/UX
-
-## Tech Stack
-
-### Frontend
-- React 18.2.0
-- React Router for navigation
-- Axios for API requests
-- Context API for state management
-- CSS Modules for styling
-
-### Backend
-- Django 4.2.7
-- Django REST Framework
-- SQLite (Development)
-- Token Authentication
-- Pillow for image processing
-
-## Setup
+## Setup Instructions
 
 ### Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-
-2. Create a virtual environment:
+1. Create a virtual environment:
    ```bash
    python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Activate the virtual environment:
-   - Windows:
-     ```bash
-     venv\Scripts\activate
-     ```
-   - Unix/MacOS:
-     ```bash
-     source venv/bin/activate
-     ```
-
-4. Install dependencies:
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-5. Run migrations:
+3. Run migrations:
    ```bash
+   cd backend
    python manage.py migrate
    ```
 
-6. Start the server:
+4. Start the development server:
    ```bash
    python manage.py runserver
    ```
 
 ### Frontend Setup
-1. Navigate to the frontend directory:
+1. Install dependencies:
    ```bash
    cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
    npm install
    ```
 
-3. Start the development server:
+2. Start the development server:
    ```bash
    npm start
    ```
+
+## Features
+- Blog post creation and viewing
+- Responsive design
+- REST API
+- Authentication
+- Azure deployment ready
+- Optional LLM integration for content generation
 
 ## API Endpoints
 - GET /api/posts/ - List all posts
