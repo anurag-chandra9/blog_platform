@@ -82,34 +82,9 @@ A modern blog platform built with React and Django, featuring user authenticatio
    ```
 
 ## API Endpoints
+- GET /api/posts/ - List all posts
+- POST /api/posts/ - Create a new post
+- GET /api/posts/{id}/ - Retrieve specific post
 
-- Authentication:
-  - POST /api/register/
-  - POST /api/login/
-  - POST /api/logout/
-
-- Posts:
-  - GET /api/posts/
-  - POST /api/posts/
-  - GET /api/posts/{id}/
-  - PUT /api/posts/{id}/
-  - DELETE /api/posts/{id}/
-  - GET /api/posts/my_posts/
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-Anurag Kumar
-- LinkedIn: [Anurag Kumar](https://linkedin.com/in/anurag-chandra9)
-- Email: anuragkrstm01@gmail.com
+## Deployment
+Refer to the deployment documentation for Azure setup instructions.
